@@ -1,5 +1,9 @@
 # Created by https://www.gitignore.io/api/osx,node,linux,macos,windows,webstorm+all
 
+### Custom ###
+# DB credentials file
+dbCredentials.js
+
 ### Linux ###
 *~
 
