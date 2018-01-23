@@ -5,3 +5,5 @@ CoachBot is a prototype of a web-based conversational agent for delivering Cogni
 
 ## Documentation
 - [Wiki](https://github.com/SilasBerger/coachbot-brain/wiki)
+- [Project Management](https://github.com/SilasBerger/coachbot-brain/projects)
+- [Issues](https://github.com/SilasBerger/coachbot-brain/issues)
