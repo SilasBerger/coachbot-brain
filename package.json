@@ -1,0 +1,28 @@
+{
+  "name": "coachbot-brain",
+  "version": "1.0.0",
+  "description": "Decision making center of CoachBot, a conversational agent for web-basedCognitive Behavioral Therapy sessions.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SilasBerger/coachbot-brain.git"
+  },
+  "keywords": [
+    "cbt",
+    "cognitive-behavioral-therapy",
+    "conversational-agent",
+    "chatbot"
+  ],
+  "author": "Silas Berger, Tomasz Kolonko",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SilasBerger/coachbot-brain/issues"
+  },
+  "homepage": "https://github.com/SilasBerger/coachbot-brain#readme",
+  "dependencies": {
+    "express": "^4.16.2"
+  }
+}
