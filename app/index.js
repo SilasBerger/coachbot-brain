@@ -1,13 +1,13 @@
 const express = require('express');
-const dbConfig = require('./dbconf').config;
 const bodyParser = require('body-parser');
 const dialogflow = require('./dialogflow');
 
-// Bootstrap the application
+// --- Bootstrap the application ---
 
 const app = express();
 app.use(bodyParser.json());
 
+// should later be adapted to actual response engine / brain
 dialogflow.setSpeechResponseAuthority(speechResponseAuthority);
 
 app.get('/', function (req, res) {

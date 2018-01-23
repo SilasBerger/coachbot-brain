@@ -2,7 +2,7 @@
   "name": "coachbot-brain",
   "version": "1.0.0",
   "description": "Decision making center of CoachBot, a conversational agent for web-basedCognitive Behavioral Therapy sessions.",
-  "main": "index.js",
+  "main": "app/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

@@ -1,8 +1,8 @@
 // require mongoose ODM
 const mongoose = require('mongoose');
 
-//require dbconf.js module, which provides config and config in an object called config
-const dbConfig = require('./dbconf').config;
+//require the dbconf.js module, which provides config and config in an object called config
+const dbConfig = require('../dbconf').config;
 
 //connect to DB using dbconf.js
 mongoose.connect("mongodb://" + dbConfig.username + ":" + dbConfig.password + "@" + dbConfig.host + ":" + dbConfig.port + "/" + dbConfig.dbName);
