@@ -1,5 +1,5 @@
 const express = require('express');
-const dbCreds = require('./dbconf').credentials;
+const dbConfig = require('./dbconf').config;
 const bodyParser = require('body-parser');
 const dialogflow = require('./dialogflow');
 
