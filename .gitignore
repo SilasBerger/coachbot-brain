@@ -2,7 +2,7 @@
 
 ### Custom ###
 # DB credentials file
-dbCredentials.js
+dbconf.js
 
 ### Linux ###
 *~

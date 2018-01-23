@@ -1,5 +1,5 @@
 const express = require('express');
-const dbCreds = require('./dbCredentials').credentials;
+const dbCreds = require('./dbconf').credentials;
 const bodyParser = require('body-parser');
 
 const app = express();
