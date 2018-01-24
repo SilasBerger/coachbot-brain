@@ -34,6 +34,7 @@ function getRequestBody(req) {
     return rb;
 }
 
+
 function logRequest(requestBody){
     console.log("\nReceived webhook request");
     console.log("---------------------------");
