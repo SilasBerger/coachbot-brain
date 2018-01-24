@@ -21,13 +21,27 @@ app.post('/webhook', function (req, res) {
 
 // Temporary, should be moved to some logic center
 function speechResponseAuthority(requestBody) {
-    if(requestBody.action === "input.welcome"){
-        return "Hello from the otter slide!";
+
+    /*
+     * Dialogflow seems to show some unexpected behavior. The action is often empty.
+     * Using the intent as a fallback for now. Need to find out the difference between intent
+     * and action though.
+     */
+    var decider = requestBody.action;
+    if(decider === "" || decider === null || decider === undefined){
+        decider = requestBody.intent;
     }
-    if (requestBody.action === "order.drink"){
-        return "No drinks for you!"
+
+    switch(decider){
+        case "input.welcome":
+            return "Heyo! How are you doing?";
+        case "mood.happy":
+            return "Great to her that! I love seeing you happy ;-)";
+        case "mood.sad":
+            return "Sorry, to hear that. What's up? =(";
+        default:
+            return "Sorry, I'm trying by best, but I didn't understand that...";
     }
-    return "No clue what you want from me...";
 }
 
 

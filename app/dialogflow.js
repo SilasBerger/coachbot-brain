@@ -30,6 +30,7 @@ function getRequestBody(req) {
     rb.action = reqBody.result.action;
     rb.resolvedQuery = reqBody.result.resolvedQuery;
     rb.contexts = reqBody.result.contexts;
+    rb.intent = reqBody.result.metadata.intentName;
     return rb;
 }
 
