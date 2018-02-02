@@ -1,27 +1,25 @@
-const subscriberCallbacks = [];
-var speechResponseAuthority;
 
-function subscribe(callback) {
+var currentContext;
 
-}
-
-function setSpeechResponseAuthority(sra) {
-    speechResponseAuthority = sra;
+function context(newContext) {
+    currentContext = newContext;
 }
 
 function newRequest(req, res) {
     var requestBody = getRequestBody(req);
-    var speechResponse = speechResponseAuthority(requestBody);
     var responsePayload = {
-        speech: speechResponse,
+        speech: "",
         displayText: "No display text",
         data: {},
         contextOut: [],
         source: "CoachBot Brain"
     };
-    res.json(responsePayload);
     logRequest(requestBody);
-    subscriberCallbacks.forEach(function (callback) { callback(requestBody, responsePayload) })
+    currentContext.input(requestBody, responsePayload, res);
+}
+
+function response(responsePayload, responseObject){
+    responseObject.json(responsePayload);
 }
 
 function getRequestBody(req) {
@@ -48,7 +46,7 @@ function logRequest(requestBody){
 }
 
 module.exports = {
-    subscribe,
-    setSpeechResponseAuthority,
+    context,
     newRequest,
+    response
 };
