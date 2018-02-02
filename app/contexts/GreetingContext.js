@@ -12,8 +12,21 @@ exports.GreetingContext = function () {
 
 
     this.input = function (meta) {
-        new Message.NoReply(this.greetings.get(), meta);
-        Context.backToDefault(meta);
-    }
+        Message.YesNoDecision("Hey! Are you feeling well today?", function (result, meta) {
+            if(result === undefined){
+                Message.DidNotUnderstand(meta);
+                console.log("response not understood");
+            } else if(result){
+                Message.NoReply("Great! Happy to hear that!", meta);
+                console.log("is feeling well");
+            } else{
+                Message.NoReply("Sorry to hear that... Hope you'll feel better soon!", meta);
+                console.log("is feeling bad");
+            }
+            Context.backToDefault(meta);
+        }, false, meta);
+    };
+
+    this.defaultInput = this.input;
 
 };
