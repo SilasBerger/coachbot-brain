@@ -1,3 +1,4 @@
+const User = require("./model/User");
 
 var currentContext;
 
@@ -15,7 +16,7 @@ function newRequest(req, res) {
         source: "CoachBot Brain"
     };
     logRequest(requestBody);
-    currentContext.input(requestBody, responsePayload, res);
+    requestBody.user.mainContext.input(requestBody, responsePayload, res);
 }
 
 function response(responsePayload, responseObject){
@@ -29,6 +30,8 @@ function getRequestBody(req) {
     rb.resolvedQuery = reqBody.result.resolvedQuery;
     rb.contexts = reqBody.result.contexts;
     rb.intent = reqBody.result.metadata.intentName;
+    rb.userId = "test-user-01";
+    rb.user = User.getUser(rb.userId);
     return rb;
 }
 
