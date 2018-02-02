@@ -11,9 +11,9 @@ exports.GreetingContext = function () {
     this.greetings.add("Hello! Nice to hear from you =)");
 
 
-    this.input = function (requestBody, responsePayload, responseObject) {
-        new Message.NoReply(this.greetings.get(), responsePayload, responseObject);
-        Context.backToDefault(requestBody, responsePayload, responseObject);
+    this.input = function (meta) {
+        new Message.NoReply(this.greetings.get(), meta);
+        Context.backToDefault(meta);
     }
 
 };

@@ -5,13 +5,13 @@ const GreetingContext = require("./GreetingContext");
 
 exports.DefaultContext = function () {
 
-    this.input = function (requestBody, responsePayload, responseObject) {
-        switch(requestBody.action){
+    this.input = function (meta) {
+        switch(meta.requestBody.action){
             case "input.welcome":
-                Context.passContext(requestBody, responsePayload, responseObject, new GreetingContext.GreetingContext());
+                Context.passContext(meta, new GreetingContext.GreetingContext());
                 break;
             default:
-                Message.DidNotUnderstand(requestBody, responsePayload, responseObject);
+                Message.DidNotUnderstand(meta);
         }
     }
 

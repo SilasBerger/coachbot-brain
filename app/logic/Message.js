@@ -8,12 +8,12 @@ didNotUnderstandReplys.add("Sorry, I don't understand what you are saying");
 didNotUnderstandReplys.add("Hmm... I'm not sure I understand :D Remember, I'm just a robot ;-)");
 
 
-exports.NoReply = function (message, responsePayload, responseObject) {
-    responsePayload.speech = message;
-    dialogflow.response(responsePayload, responseObject);
+exports.NoReply = function (message, meta) {
+    meta.responsePayload.speech = message;
+    dialogflow.response(meta);
 };
 
-exports.DidNotUnderstand = function (message, responsePayload, responseObject) {
-    responsePayload.speech = didNotUnderstandReplys.get();
-    dialogflow.response(responsePayload, responseObject);
+exports.DidNotUnderstand = function (meta) {
+    meta.responsePayload.speech = didNotUnderstandReplys.get();
+    dialogflow.response(meta);
 };

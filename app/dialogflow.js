@@ -16,11 +16,11 @@ function newRequest(req, res) {
         source: "CoachBot Brain"
     };
     logRequest(requestBody);
-    requestBody.user.mainContext.input(requestBody, responsePayload, res);
+    requestBody.user.mainContext.input({requestBody: requestBody, responsePayload: responsePayload, responseObject: res});
 }
 
-function response(responsePayload, responseObject){
-    responseObject.json(responsePayload);
+function response(meta){
+    meta.responseObject.json(meta.responsePayload);
 }
 
 function getRequestBody(req) {

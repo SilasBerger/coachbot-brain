@@ -1,10 +1,10 @@
 const DefaultContext = require("./DefaultContext");
 
-exports.passContext = function(requestBody, responsePayload, responseObject, newContext){
-    requestBody.user.mainContext = newContext;
-    requestBody.user.mainContext.input(requestBody, responsePayload, responseObject);
+exports.passContext = function(meta, newContext){
+    meta.requestBody.user.mainContext = newContext;
+    meta.requestBody.user.mainContext.input(meta);
 };
 
-exports.backToDefault = function (requestBody, responsePayload, responseObject) {
-    requestBody.user.mainContext = new DefaultContext.DefaultContext();
+exports.backToDefault = function (meta) {
+    meta.requestBody.user.mainContext = new DefaultContext.DefaultContext();
 };
