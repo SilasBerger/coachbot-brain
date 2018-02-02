@@ -1,14 +1,14 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const dialogflow = require('./dialogflow');
+const SynonymBox = require('./SynonymBox');
+const YesNoDecision = require("./logic/YesNoDecision");
+const DecisionModel = require("./logic/DecisionModel");
 
 // --- Bootstrap the application ---
 
 const app = express();
 app.use(bodyParser.json());
-
-// should later be adapted to actual response engine / brain
-dialogflow.setSpeechResponseAuthority(speechResponseAuthority);
 
 app.get('/', function (req, res) {
     res.send("CoachBot Brain");
@@ -19,30 +19,23 @@ app.post('/webhook', function (req, res) {
 });
 
 
-// Temporary, should be moved to some logic center
-function speechResponseAuthority(requestBody) {
-
-    /*
-     * Dialogflow seems to show some unexpected behavior. The action is often empty.
-     * Using the intent as a fallback for now. Need to find out the difference between intent
-     * and action though.
-     */
-    var decider = requestBody.action;
-    if(decider === "" || decider === null || decider === undefined){
-        decider = requestBody.intent;
+var ynd = new YesNoDecision.YesNoDecision(function (decision, requestBody, responsePayload, responseObject) {
+    if(decision.decisionResultType === DecisionModel.DecisionResultTypes.yesNo){
+        if(decision.decisionResult.result){
+            responsePayload.speech = "You said yes";
+        } else{
+            responsePayload.speech = "You said no";
+        }
+    } else if(decision.decisionResultType === DecisionModel.DecisionResultTypes.subjectChange){
+        responsePayload.speech = "You want to change the subject";
+    } else{
+        responsePayload.speech = "Sorry, I did not understand that";
     }
 
-    switch(decider){
-        case "input.welcome":
-            return "Heyo! How are you doing?";
-        case "mood.happy":
-            return "Great to her that! I love seeing you happy ;-)";
-        case "mood.sad":
-            return "Sorry, to hear that. What's up? =(";
-        default:
-            return "Sorry, I'm trying by best, but I didn't understand that...";
-    }
-}
+    dialogflow.response(responsePayload, responseObject);
+});
+
+dialogflow.context(ynd);
 
 
 app.listen(3000, function () {
