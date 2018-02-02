@@ -1,10 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const dialogflow = require('./dialogflow');
-const SynonymBox = require('./SynonymBox');
-const YesNoDecision = require("./logic/YesNoDecision");
-const DecisionModel = require("./logic/DecisionModel");
 const User = require("./model/User");
+const DefaultContext = require("./contexts/DefaultContext");
 
 // --- Bootstrap the application ---
 
@@ -22,25 +20,7 @@ app.post('/webhook', function (req, res) {
 var testuser = new User.User("test-user-01");
 testuser.firstName = "Jon";
 testuser.lastName = "Doe";
-
-
-var ynd = new YesNoDecision.YesNoDecision(function (decision, requestBody, responsePayload, responseObject) {
-    if(decision.decisionResultType === DecisionModel.DecisionResultTypes.yesNo){
-        if(decision.decisionResult.result){
-            responsePayload.speech = requestBody.user.firstName + ", you said yes";
-        } else{
-            responsePayload.speech = requestBody.user.firstName + ", you said no";
-        }
-    } else if(decision.decisionResultType === DecisionModel.DecisionResultTypes.subjectChange){
-        responsePayload.speech =  "Okay, " + requestBody.user.firstName + ", you want to change the subject";
-    } else{
-        responsePayload.speech = "Sorry, " + requestBody.user.firstName + ", I did not understand that";
-    }
-
-    dialogflow.response(responsePayload, responseObject);
-});
-
-testuser.mainContext = ynd;
+testuser.mainContext = new DefaultContext.DefaultContext();
 
 
 app.listen(3000, function () {
