@@ -12,7 +12,8 @@ exports.FunctionBox = function() {
     };
 
     this.pop = function () {
-        var randomIndex = Math.floor(Math.random() * this.functions.length);
+        //var randomIndex = Math.floor(Math.random() * this.functions.length);
+        var randomIndex = 0; //hack for debugging, TODO: remove
         var fun = this.functions[randomIndex];
         this.functions.splice(randomIndex, 1);
         return fun;

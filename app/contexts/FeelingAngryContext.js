@@ -17,14 +17,10 @@ exports.FeelingAngryContext = function () {
         sb.add("I know that feeling (yes, bots have feelings :D)! What made you so angry?");
         sb.add("Sorry to hear that, but you came to the right friend! You can leave it all out on me, and I wont get mad ;-). What are you angry about? Lay ot on me!");
 
-        //this.scriptIndex = 0;
-        //this.input = this.script;
-
         this.scriptIndex = 0;
-        this.input = this.exercises.pop();
-        this.input(meta);
+        this.input = this.script;
 
-        //Message.NoReply(sb.get(), meta);
+        Message.NoReply(sb.get(), meta);
     };
 
     this.script = function (meta) {
@@ -40,6 +36,10 @@ exports.FeelingAngryContext = function () {
                 Message.NoReply(sb.get(), meta);
                 break;
             case 1:
+                sb = new SynonymBox.SynonymBox();
+                sb.add("You know what might help you?");
+                sb.add("Okay, I have a great exercise for this! Ready?");
+                this.msgPrefix = sb.get();
                 this.scriptIndex = 0;
                 this.input = this.exercises.pop();
                 this.input(meta);
@@ -54,9 +54,9 @@ exports.FeelingAngryContext = function () {
             case 0:
                 this.scriptIndex = 1;
                 sb = new SynonymBox.SynonymBox();
-                sb.add("You know what might help you? Close your eyes (wait, not yet, read this first! :D), then take a deep breath. And again. And again. Just let the anger flow right out of you!");
-                sb.add("I know a good exercise though! Ready? Try this: Close your eyes. Now, take a reeeeallly deep breath. And another one. Focus on breathing all of your anger out. Do this as long as you like.");
-                Message.NoReply(sb.get(), meta);
+                sb.add("Close your eyes (wait, not yet, read this first! :D), then take a deep breath. And again. And again. Just let the anger flow right out of you!");
+                sb.add("Close your eyes. Now, take a reeeeallly deep breath. And another one. Focus on breathing all of your anger out. Do this as long as you like.");
+                Message.NoReply((this.msgPrefix !== undefined ? (this.msgPrefix + " ") : "") + sb.get(), meta);
                 break;
             case 1:
                 this.scriptIndex = 2;
@@ -103,6 +103,11 @@ exports.FeelingAngryContext = function () {
                 break;
             case 8:
                 this.scriptIndex = 0;
+                sb = new SynonymBox.SynonymBox();
+                sb.add("Alright, I have a few more things you can do. Let's try this:");
+                sb.add("Okay, sure! Let's try the following:");
+                sb.add("Great! Here's what I would like you to try:");
+                this.msgPrefix = sb.get();
                 this.input = this.exercises.pop();
                 this.input(meta);
                 break;
