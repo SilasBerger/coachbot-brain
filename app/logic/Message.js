@@ -18,20 +18,24 @@ exports.DidNotUnderstand = function (meta) {
     dialogflow.response(meta);
 };
 
-exports.YesNoDecision = function (question, callback, preemptive, meta){
+exports.YesNoDecision = function (question, meta){
     meta.responsePayload.speech = question;
     dialogflow.response(meta);
+    var originalInput = meta.requestBody.user.mainContext.input;
     meta.requestBody.user.mainContext.input = function (meta) {
-        meta.requestBody.user.mainContext.input = meta.requestBody.user.mainContext.defaultInput;
+        meta.requestBody.user.mainContext.input = originalInput;
         switch(meta.requestBody.action){
             case "decision.yes":
-                callback(true, meta);
+                meta.requestBody.decisionResult = true;
+                meta.requestBody.user.mainContext.input(meta);
                 break;
             case "decision.no":
-                callback(false, meta);
+                meta.requestBody.decisionResult = false;
+                meta.requestBody.user.mainContext.input(meta);
                 break;
             default:
-                callback(undefined, meta);
+                meta.requestBody.decisionResult = undefined;
+                meta.requestBody.user.mainContext.input(meta);
                 break;
         }
     }
