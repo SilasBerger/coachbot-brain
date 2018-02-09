@@ -8,8 +8,8 @@ exports.FeelingAngryContext = function () {
 
     this.input = function (meta) {
         this.exercises = new FunctionBox.FunctionBox();
-        this.exercises.add(this.breathingExercise);
         this.exercises.add(this.ventExercise);
+        this.exercises.add(this.breathingExercise);
         this.exercises.add(this.positivityExercise);
 
         var sb = new SynonymBox.SynonymBox();
@@ -135,9 +135,86 @@ exports.FeelingAngryContext = function () {
 
         switch (this.scriptIndex){
             case 0:
+                this.scriptIndex = 1;
                 sb = new SynonymBox.SynonymBox();
-                sb.add("Okay, here's what I would like you to try: Just let it all out! Write everything down that is annoying you right now.");
+                sb.add("Just let it all out! Write everything down that is annoying you right now!");
+                sb.add("Ventilate! Tell me everything that is making you angry. Get it all off your chest!");
+                sb.add("Go on a rant! Let out everything that is bothering you! Don't hold back, my circuits can take it :D");
+                Message.NoReply(sb.get(), meta);
+                break;
+            case 1:
+                this.scriptIndex = 2;
+                sb = new SynonymBox.SynonymBox();
+                sb.add("Good, good, you're doing great! There's more though, right? Come on, lay it on me!");
+                sb.add("Yess!! This is what I'm talking about! See how cathartic that is? Come on, give me more!");
+                sb.add("Amazing, this is what I mean! Go on, I know you got more of that :D");
+                Message.NoReply(sb.get(), meta);
+                break;
+            case 2:
+                this.scriptIndex = 3;
+                sb = new SynonymBox.SynonymBox();
+                sb.add("Perfect! One more thing!");
+                sb.add("We're getting there! Come one, one more thing that really gets you going!");
+                sb.add("Oh yeah, you're doing great! Alright, I'm sure you got one more thing that really grinds your gears. Lay it on me, buddy!");
+                Message.NoReply(sb.get(), meta);
+                break;
+            case 3:
+                this.scriptIndex = 4;
+                sb = new SynonymBox.SynonymBox();
+                sb.add("Wooooh! Did that feel amazing or did that feel amazing? It felt amazing, right? :D");
+                sb.add("Holy cow, that was fantastic!!! Aren't you just feeling a ton lighter right now?");
+                sb.add("Yes, yes, yesss! This is it!! Phuh, that was great! Okay, tell me, are you feeling better already?");
+                Message.YesNoDecision(sb.get(), meta);
+            case 4:
+                this.handleYesNoResponse(meta, 5, 6, 7);
+                break;
+            case 5:
+                this.scriptIndex = 8;
+                sb = new SynonymBox.SynonymBox();
+                sb.add("Glad you're feeling better now. Would you still like to try out another technique?");
+                sb.add("We're making progress :D In case you're still a bit angry, would you like to try something else?");
+                sb.add("This is going well! You're amazing ;-)! Would you like me to teach you another technique?");
+                Message.YesNoDecision(sb.get(), meta);
+                break;
+            case 6:
+                this.scriptIndex = 8;
+                sb = new SynonymBox.SynonymBox();
+                sb.add("Hmm, alright then... Would you like to try something else?");
+                Message.YesNoDecision(sb.get(), meta);
+                break;
+            case 7:
+                this.scriptIndex = 8;
+                sb = new SynonymBox.SynonymBox();
+                sb.add("Oh boy, I don't think I understood that :D In any case, would you like to try another technique?");
+                Message.YesNoDecision(sb.get(), meta);
+                break;
+            case 8:
+                this.handleYesNoResponse(meta, 9, 10, 11);
+                break;
+            case 9:
+                this.scriptIndex = 0;
+                sb = new SynonymBox.SynonymBox();
+                sb.add("Alright, I have a few more things you can do. Let's try this:");
+                sb.add("Okay, sure! Let's try the following:");
+                sb.add("Great! Here's what I would like you to try:");
+                this.msgPrefix = sb.get();
+                this.input = this.exercises.pop();
+                this.input(meta);
+                break;
+            case 10:
                 Context.backToDefault(meta);
+                sb = new SynonymBox.SynonymBox();
+                sb.add("Okay, no problem =) If you need anything else, you just let me know! I'm here for you, buddy ;-)");
+                sb.add("Alright then, just let me know if you need anything else =)");
+                sb.add("Coolio! If you need any more help or advice, you know where to find me (that's right, up there, in the almighty bot cloud, watching over you :D)!");
+                Message.NoReply(sb.get(), meta);
+                break;
+            case 11:
+                Context.backToDefault(meta);
+                sb = new SynonymBox.SynonymBox();
+                sb.add("Didn't quite get that, to be honest :D But if you need anything else, you know you can always come and ask =)");
+                sb.add("I have to admit, my robot brain didn't quite get that... Haha anyway, ");
+                sb.add("Didn't quite get that, to be honest :D But if you need anything else, you know you can always come and ask =)");
                 Message.NoReply(sb.get(), meta);
                 break;
         }
@@ -149,7 +226,7 @@ exports.FeelingAngryContext = function () {
         switch (this.scriptIndex){
             case 0:
                 sb = new SynonymBox.SynonymBox();
-                sb.add("But you know what? Sometimes, if I get angry about something, I feel like I'm just getting stuck in an endless loop of anger. You know what I'm saying?");
+                sb.add("Sometimes, if I get angry about something, I feel like I'm just getting stuck in an endless loop of anger. You know what I'm saying?");
                 //  As a robot, I would call this 'infinite recursion', which means.. Never mind, not important! What's important is this: Try not to focus on what makes you angry, but on what makes you happy. Get what I'm saying?
                 Context.backToDefault(meta);
                 Message.NoReply(sb.get(), meta); //TODO: this is a yes no question. get answer, and try to put it in another way if needed

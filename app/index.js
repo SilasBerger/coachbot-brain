@@ -9,6 +9,8 @@ const DefaultContext = require("./contexts/DefaultContext");
 const app = express();
 app.use(bodyParser.json());
 
+const port = process.env.port || 3000;
+
 app.get('/', function (req, res) {
     res.send("CoachBot Brain");
 });
@@ -23,6 +25,6 @@ testuser.lastName = "Doe";
 testuser.mainContext = new DefaultContext.DefaultContext();
 
 
-app.listen(3000, function () {
+app.listen(port, function () {
    console.log("Server started on port 3000");
 });
