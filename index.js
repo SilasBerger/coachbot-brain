@@ -1,8 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const dialogflow = require('./dialogflow');
-const User = require("./model/User");
-const DefaultContext = require("./contexts/DefaultContext");
+const dialogflow = require('./app/dialogflow');
+const User = require("./app/model/User");
+const DefaultContext = require("./app/contexts/DefaultContext");
 
 // --- Bootstrap the application ---
 
