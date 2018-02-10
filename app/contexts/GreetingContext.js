@@ -4,19 +4,17 @@ const Context = require("./Context");
 
 exports.GreetingContext = function () {
 
-    this.greetings = new SynonymBox.SynonymBox();
-    this.greetings.add("Oh, hey there! How are you doing?");
-    this.greetings.add("Oh, hi, nice to see you! How are you, pal?");
-    this.greetings.add("Hey! Great to see you! How are you feeling?");
-    this.greetings.add("Hello! Nice to hear from you =) How are you doing?");
-
-
     this.input = function (meta) {
         if(meta.requestBody.user.isFirstTimeUser){
             //TODO: take appropriate action
         } else{
             Context.backToDefault(meta);
-            Message.NoReply(this.greetings.get(), meta);
+            var greetings = new SynonymBox.SynonymBox();
+            greetings.add("Oh, hey there " + meta.requestBody.user.name + "! How are you doing?");
+            greetings.add("Oh, hi, nice to see you " + meta.requestBody.user.name + "! How are you, pal?");
+            greetings.add("Hey! Great to see you, " + meta.requestBody.user.name + "! How are you feeling?");
+            greetings.add("Hey " + meta.requestBody.user.name+ "! Nice to hear from you =) How are you doing?");
+            Message.NoReply(greetings.get(), meta);
         }
     };
 

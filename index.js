@@ -21,8 +21,7 @@ app.post('/webhook', function (req, res) {
 });
 
 var testuser = new User.User("test-user-01");
-testuser.firstName = "Jon";
-testuser.lastName = "Doe";
+testuser.name = "Jon";
 testuser.mainContext = new GreetingContext.GreetingContext();
 
 
