@@ -16,6 +16,9 @@ exports.SynonymBox = function() {
         var fun = this.synonyms[randomIndex];
         this.synonyms.splice(randomIndex, 1);
         return fun;
-    }
+    };
 
+    this.hasNext = function () {
+        return this.functions.length > 0;
+    }
 };

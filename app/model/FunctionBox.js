@@ -17,6 +17,10 @@ exports.FunctionBox = function() {
         var fun = this.functions[randomIndex];
         this.functions.splice(randomIndex, 1);
         return fun;
+    };
+
+    this.hasNext = function () {
+        return this.functions.length > 0;
     }
 
 };

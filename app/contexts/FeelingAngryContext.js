@@ -8,9 +8,8 @@ exports.FeelingAngryContext = function () {
 
     this.input = function (meta) {
         this.exercises = new FunctionBox.FunctionBox();
-        this.exercises.add(this.ventExercise);
         this.exercises.add(this.breathingExercise);
-        this.exercises.add(this.positivityExercise);
+        this.exercises.add(this.ventExercise);
 
         var sb = new SynonymBox.SynonymBox();
         sb.add("Grrr! What are you angry about?");
@@ -79,24 +78,44 @@ exports.FeelingAngryContext = function () {
                 Message.NoReply(sb.get(), meta);
                 break;
             case 4:
-                this.scriptIndex = 7;
                 sb = new SynonymBox.SynonymBox();
-                sb.add("Hmmm... Would you like to try something else?");
-                Message.YesNoDecision(sb.get(), meta);
+                if(this.exercises.hasNext()){
+                    this.scriptIndex = 7;
+                    sb.add("Hmmm... Would you like to try something else?");
+                    Message.YesNoDecision(sb.get(), meta);
+                } else{
+                    Context.backToDefault(meta);
+                    sb.add("Oh, sorry to hear that =( That's really all I've got for you right now, buddy... ");
+                    Message.NoReply(sb.get(), meta);
+                }
                 break;
             case 5:
-                this.scriptIndex = 7;
                 sb = new SynonymBox.SynonymBox();
-                sb.add("I don't quite get what you're saying :D Anyway, I hope it helped you. Would you like to try out another technique?");
-                Message.YesNoDecision(sb.get(), meta);
+                if(this.exercises.hasNext()){
+                    this.scriptIndex = 7;
+                    sb.add("I don't quite get what you're saying :D Anyway, I hope it helped you. Would you like to try out another technique?");
+                    Message.YesNoDecision(sb.get(), meta);
+                } else{
+                    Context.backToDefault(meta);
+                    sb.add("I don't quite get what you're saying :D Anyway, I hope it helped you!");
+                    Message.NoReply(sb.get(), meta);
+                }
                 break;
             case 6:
-                this.scriptIndex = 7;
                 sb = new SynonymBox.SynonymBox();
-                sb.add("Glad you're feeling better now. Would you still like to try out another technique?");
-                sb.add("We're making progress :D In case you're still a bit angry, would you like to try something else?");
-                sb.add("This is going well! You're amazing ;-)! Would you like me to teach you another technique?");
-                Message.YesNoDecision(sb.get(), meta);
+                if(this.exercises.hasNext()){
+                    this.scriptIndex = 7;
+                    sb.add("Glad you're feeling better now. Would you still like to try out another technique?");
+                    sb.add("We're making progress :D In case you're still a bit angry, would you like to try something else?");
+                    sb.add("This is going well! You're amazing ;-)! Would you like me to teach you another technique?");
+                    Message.YesNoDecision(sb.get(), meta);
+                } else{
+                    Context.backToDefault(meta);
+                    sb.add("Glad you're feeling better now!");
+                    sb.add("We're making progress :D You're doing an amazing job ;-)");
+                    sb.add("This is going well! You're amazing ;-)!");
+                    Message.NoReply(sb.get(), meta);
+                }
                 break;
             case 7:
                 this.handleYesNoResponse(meta, 8, 9, 10);
@@ -140,7 +159,7 @@ exports.FeelingAngryContext = function () {
                 sb.add("Just let it all out! Write everything down that is annoying you right now!");
                 sb.add("Ventilate! Tell me everything that is making you angry. Get it all off your chest!");
                 sb.add("Go on a rant! Let out everything that is bothering you! Don't hold back, my circuits can take it :D");
-                Message.NoReply(sb.get(), meta);
+                Message.NoReply((this.msgPrefix !== undefined ? (this.msgPrefix + " ") : "") + sb.get(), meta);
                 break;
             case 1:
                 this.scriptIndex = 2;
@@ -163,35 +182,65 @@ exports.FeelingAngryContext = function () {
                 sb = new SynonymBox.SynonymBox();
                 sb.add("Wooooh! Did that feel amazing or did that feel amazing? It felt amazing, right? :D");
                 sb.add("Holy cow, that was fantastic!!! Aren't you just feeling a ton lighter right now?");
-                sb.add("Yes, yes, yesss! This is it!! Phuh, that was great! Okay, tell me, are you feeling better already?");
+                sb.add("Yes, yes, yesss! This is it!! Pheew! That was great! Okay, tell me, are you feeling better already?");
                 Message.YesNoDecision(sb.get(), meta);
+                break;
             case 4:
                 this.handleYesNoResponse(meta, 5, 6, 7);
                 break;
             case 5:
                 this.scriptIndex = 8;
                 sb = new SynonymBox.SynonymBox();
-                sb.add("Glad you're feeling better now. Would you still like to try out another technique?");
-                sb.add("We're making progress :D In case you're still a bit angry, would you like to try something else?");
-                sb.add("This is going well! You're amazing ;-)! Would you like me to teach you another technique?");
-                Message.YesNoDecision(sb.get(), meta);
+                sb.add("Great! Happy to hear that!");
+                sb.add("Amazing, glad I could help!");
+                sb.add("See? This old bot still knows a few tricks ;-)");
+                sb.add("Nice! See how easy that was? And the beauty of it: you can do this anytime, anywhere!");
+                Message.NoReply(sb.get(), meta);
                 break;
             case 6:
-                this.scriptIndex = 8;
                 sb = new SynonymBox.SynonymBox();
-                sb.add("Hmm, alright then... Would you like to try something else?");
-                Message.YesNoDecision(sb.get(), meta);
+                if(this.exercises.hasNext()){
+                    this.scriptIndex = 9;
+                    sb.add("Hmmm... Would you like to try something else?");
+                    Message.YesNoDecision(sb.get(), meta);
+                } else{
+                    Context.backToDefault(meta);
+                    sb.add("Oh, sorry to hear that =( That's really all I've got for you right now, buddy... ");
+                    Message.NoReply(sb.get(), meta);
+                }
                 break;
             case 7:
-                this.scriptIndex = 8;
                 sb = new SynonymBox.SynonymBox();
-                sb.add("Oh boy, I don't think I understood that :D In any case, would you like to try another technique?");
-                Message.YesNoDecision(sb.get(), meta);
+                if(this.exercises.hasNext()){
+                    this.scriptIndex = 9;
+                    sb.add("I don't quite get what you're saying :D Anyway, I hope it helped you. Would you like to try out another technique?");
+                    Message.YesNoDecision(sb.get(), meta);
+                } else{
+                    Context.backToDefault(meta);
+                    sb.add("I don't quite get what you're saying :D Anyway, I hope it helped you!");
+                    Message.NoReply(sb.get(), meta);
+                }
                 break;
             case 8:
-                this.handleYesNoResponse(meta, 9, 10, 11);
+                sb = new SynonymBox.SynonymBox();
+                if(this.exercises.hasNext()){
+                    this.scriptIndex = 9;
+                    sb.add("Glad you're feeling better now. Would you still like to try out another technique?");
+                    sb.add("We're making progress :D In case you're still a bit angry, would you like to try something else?");
+                    sb.add("This is going well! You're amazing ;-)! Would you like me to teach you another technique?");
+                    Message.YesNoDecision(sb.get(), meta);
+                } else{
+                    Context.backToDefault(meta);
+                    sb.add("Glad you're feeling better now!");
+                    sb.add("We're making progress :D You're doing an amazing job ;-)");
+                    sb.add("This is going well! You're amazing ;-)!");
+                    Message.NoReply(sb.get(), meta);
+                }
                 break;
             case 9:
+                this.handleYesNoResponse(meta, 10, 11, 12);
+                break;
+            case 10:
                 this.scriptIndex = 0;
                 sb = new SynonymBox.SynonymBox();
                 sb.add("Alright, I have a few more things you can do. Let's try this:");
@@ -201,7 +250,7 @@ exports.FeelingAngryContext = function () {
                 this.input = this.exercises.pop();
                 this.input(meta);
                 break;
-            case 10:
+            case 11:
                 Context.backToDefault(meta);
                 sb = new SynonymBox.SynonymBox();
                 sb.add("Okay, no problem =) If you need anything else, you just let me know! I'm here for you, buddy ;-)");
@@ -209,7 +258,7 @@ exports.FeelingAngryContext = function () {
                 sb.add("Coolio! If you need any more help or advice, you know where to find me (that's right, up there, in the almighty bot cloud, watching over you :D)!");
                 Message.NoReply(sb.get(), meta);
                 break;
-            case 11:
+            case 12:
                 Context.backToDefault(meta);
                 sb = new SynonymBox.SynonymBox();
                 sb.add("Didn't quite get that, to be honest :D But if you need anything else, you know you can always come and ask =)");
@@ -217,20 +266,7 @@ exports.FeelingAngryContext = function () {
                 sb.add("Didn't quite get that, to be honest :D But if you need anything else, you know you can always come and ask =)");
                 Message.NoReply(sb.get(), meta);
                 break;
-        }
-    };
 
-    this.positivityExercise = function (meta) {
-        var sb = new SynonymBox.SynonymBox();
-
-        switch (this.scriptIndex){
-            case 0:
-                sb = new SynonymBox.SynonymBox();
-                sb.add("Sometimes, if I get angry about something, I feel like I'm just getting stuck in an endless loop of anger. You know what I'm saying?");
-                //  As a robot, I would call this 'infinite recursion', which means.. Never mind, not important! What's important is this: Try not to focus on what makes you angry, but on what makes you happy. Get what I'm saying?
-                Context.backToDefault(meta);
-                Message.NoReply(sb.get(), meta); //TODO: this is a yes no question. get answer, and try to put it in another way if needed
-                break;
         }
     };
 
