@@ -55,7 +55,7 @@ exports.FeelingAngryContext = function () {
                 sb = new SynonymBox.SynonymBox();
                 sb.add("Close your eyes (wait, not yet, read this first! :D), then take a deep breath. And again. And again. Just let the anger flow right out of you!");
                 sb.add("Close your eyes. Now, take a reeeeallly deep breath. And another one. Focus on breathing all of your anger out. Do this as long as you like.");
-                Message.NoReply((this.msgPrefix !== undefined ? (this.msgPrefix + " ") : "") + sb.get(), meta);
+                Message.NoReply(this.compileMessage(sb.get()), meta);
                 break;
             case 1:
                 this.scriptIndex = 2;
@@ -159,7 +159,7 @@ exports.FeelingAngryContext = function () {
                 sb.add("Just let it all out! Write everything down that is annoying you right now!");
                 sb.add("Ventilate! Tell me everything that is making you angry. Get it all off your chest!");
                 sb.add("Go on a rant! Let out everything that is bothering you! Don't hold back, my circuits can take it :D");
-                Message.NoReply((this.msgPrefix !== undefined ? (this.msgPrefix + " ") : "") + sb.get(), meta);
+                Message.NoReply(this.compileMessage(sb.get()), meta);
                 break;
             case 1:
                 this.scriptIndex = 2;
@@ -279,6 +279,14 @@ exports.FeelingAngryContext = function () {
             this.scriptIndex = falseIndex;
         }
         this.input(meta);
+    };
+
+    this.compileMessage = function(msg) {
+        var pref = (this.msgPrefix === undefined ? "" : (this.msgPrefix + " "));
+        var suff = (this.msgSuffix === undefined ? "" : (" " + this.msgSuffix));
+        this.msgPrefix = undefined;
+        this.msgSuffix = undefined;
+        return pref + msg + suff;
     };
 
 

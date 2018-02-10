@@ -4,6 +4,7 @@ const Context = require("./Context");
 const GreetingContext = require("./GreetingContext");
 const TalkAboutFeelingsContext = require("./TalkAboutFeelingsContext");
 const FeelingAngryContext = require("./FeelingAngryContext");
+const TopicSelectorContext = require("./TopicSelectorContext");
 
 exports.DefaultContext = function () {
 
@@ -15,20 +16,20 @@ exports.DefaultContext = function () {
             case "mood.depressed":
                 //TODO: take appropriate action
                 Context.backToDefault(meta);
-                Message.NoReply("This context is not yet implemented");
+                Message.NoReply("This context is not yet implemented", meta);
                 break;
             case "mood.anxious":
                 //TODO: take appropriate action
                 Context.backToDefault(meta);
-                Message.NoReply("This context is not yet implemented");
+                Message.NoReply("This context is not yet implemented", meta);
                 break;
             case "mood.happy":
                 //TODO: take appropriate action
                 Context.backToDefault(meta);
-                Message.NoReply("This context is not yet implemented");
+                Message.NoReply("This context is not yet implemented", meta);
                 break;
             default:
-                //TODO: go to topic selector
+                Context.passContext(meta, new TopicSelectorContext.TopicSelectorContext());
                 break;
         }
     };
