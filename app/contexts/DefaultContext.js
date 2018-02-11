@@ -1,9 +1,7 @@
-const SynonymBox = require("../model/SynonymBox");
 const Message = require("../logic/Message");
 const Context = require("./Context");
-const GreetingContext = require("./GreetingContext");
-const TalkAboutFeelingsContext = require("./TalkAboutFeelingsContext");
 const FeelingAngryContext = require("./FeelingAngryContext");
+const FeelingHappyContext = require("./FeelingHappyContext");
 const TopicSelectorContext = require("./TopicSelectorContext");
 
 exports.DefaultContext = function () {
@@ -24,9 +22,7 @@ exports.DefaultContext = function () {
                 Message.NoReply("This context is not yet implemented", meta);
                 break;
             case "mood.happy":
-                //TODO: take appropriate action
-                Context.backToDefault(meta);
-                Message.NoReply("This context is not yet implemented", meta);
+                Context.passContext(meta, new FeelingHappyContext.FeelingHappyContext());
                 break;
             default:
                 Context.passContext(meta, new TopicSelectorContext.TopicSelectorContext());
