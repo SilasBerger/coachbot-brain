@@ -35,8 +35,8 @@ function getRequestBody(req) {
     rb.userId = "test-user-01";
     rb.user = User.getUser(rb.userId);
     rb.user.isFirstTimeUser = false; //if user not found in db: set true
-    rb.user.lastCAT9Performed = new Date(2018, 2, 10);
-    rb.user.lastCAT9Suggested = new Date(2018, 2, 10);
+    rb.user.lastPHQ9Performed = new Date(2018, 2, 10);
+    rb.user.lastPHQ9Suggested = new Date(2018, 2, 10);
     rb.user.lessonsCompleted = ["what-is-cbt", "who-is-coachbot"];
     // ---------------------------
 

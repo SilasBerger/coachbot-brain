@@ -8,12 +8,12 @@ exports.TopicSelectorContext = function () {
 
     const msToDays = 86400000;
 
-    const cat9DueAfterDays = 30;
-    const remindCat9AfterDays = 5;
+    const phq9DueAfterDays = 30;
+    const remindPHQ9AfterDays = 5;
 
     this.defaultInput = function(meta) {
-        if (this.shouldRemindCat9(meta.requestBody.user)) {
-            //TODO: suggest CAT 9
+        if (this.shouldRemindPHQ9(meta.requestBody.user)) {
+            //TODO: suggest PHQ-9
         } else {
             this.scriptIndex = 0;
             this.input = this.chooseLesson;
@@ -64,11 +64,11 @@ exports.TopicSelectorContext = function () {
     };
 
 
-    this.shouldRemindCat9 = function(user){
+    this.shouldRemindPHQ9 = function(user){
         var now = new Date();
-        var daysSinceLastCat9 = (now - user.lastCAT9Performed) / msToDays;
-        var daysSinceLastCat9Suggested = (now - user.lastCAT9Suggested) / msToDays;
-        return (daysSinceLastCat9 >= cat9DueAfterDays) && (daysSinceLastCat9Suggested >= remindCat9AfterDays);
+        var daysSinceLastPHQ9 = (now - user.lastPHQ9Performed) / msToDays;
+        var daysSinceLastPHQ9Suggested = (now - user.lastPHQ9Suggested) / msToDays;
+        return (daysSinceLastPHQ9 >= phq9DueAfterDays) && (daysSinceLastPHQ9Suggested >= remindPHQ9AfterDays);
     };
 
     this.randomLesson = function(user) {
