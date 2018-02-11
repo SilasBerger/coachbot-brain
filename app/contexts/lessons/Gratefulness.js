@@ -1,5 +1,6 @@
 const SynonymBox = require("../../model/SynonymBox");
 const Message = require("../../logic/Message");
+const Context = require("../Context");
 
 function getInstance() {
     return new Gratefulness();
@@ -15,6 +16,7 @@ function Gratefulness() {
     this.suggesters.add("You know that thanksgiving game where everybody says what they're thankful for? That's actually more than just a game, if you as me (and CBT)! Would you be *thankful* to hear more? :D");
 
     this.input = function (meta) {
+        Context.backToDefault(meta);
         Message.NoReply("This lesson on gratefulness himself is not yet implemented", meta);
     };
 

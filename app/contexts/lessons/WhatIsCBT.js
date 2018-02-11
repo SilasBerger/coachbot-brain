@@ -1,5 +1,6 @@
 const SynonymBox = require("../../model/SynonymBox");
 const Message = require("../../logic/Message");
+const Context = require("../Context");
 
 function getInstance() {
     return new WhatIsCBT();
@@ -15,6 +16,7 @@ function WhatIsCBT() {
     this.suggesters.add("Would you be interested in learning what CBT is, and what it can do for you?");
 
     this.input = function (meta) {
+        Context.backToDefault(meta);
         Message.NoReply("This lesson on CBT is not yet implemented", meta);
     };
 

@@ -1,5 +1,6 @@
 const SynonymBox = require("../../model/SynonymBox");
 const Message = require("../../logic/Message");
+const Context = require("../Context");
 
 function getInstance() {
     return new WhoIsCoachBot();
@@ -15,6 +16,7 @@ function WhoIsCoachBot() {
     this.suggesters.add("If you have a minute, I would like to tell you a little bit about who I am, and how I can help you, okay?");
 
     this.input = function (meta) {
+        Context.backToDefault(meta);
         Message.NoReply("This lesson on CoachBot himself is not yet implemented", meta);
     };
 

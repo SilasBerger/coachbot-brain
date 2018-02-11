@@ -1,5 +1,6 @@
 const SynonymBox = require("../../model/SynonymBox");
 const Message = require("../../logic/Message");
+const Context = require("../Context");
 
 function getInstance() {
     return new ThinkPositively();
@@ -15,6 +16,7 @@ function ThinkPositively() {
     this.suggesters.add("I have a great way for you to improve your everyday life. It's all about thiking positively. Would you like me to show you what I mean?");
 
     this.input = function (meta) {
+        Context.backToDefault(meta);
         Message.NoReply("This lesson on positivity is not yet implemented", meta);
     };
 
