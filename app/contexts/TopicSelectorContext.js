@@ -2,6 +2,7 @@ const lessons = require("../model/Lessons").Lessons;
 const Message = require("../logic/Message");
 const Context = require("../contexts/Context");
 const SynonymBox = require("../model/SynonymBox");
+const ByeContext = require("../contexts/ByeContext");
 
 exports.TopicSelectorContext = function () {
 
@@ -53,8 +54,7 @@ exports.TopicSelectorContext = function () {
                 this.input(meta);
                 break;
             case 7:
-                // TODO: go to bye context
-                Message.NoReply("Bye!", meta);
+                Context.passContext(meta, new ByeContext.ByeContext());
                 break;
             case 8:
                 this.scriptIndex = 5;
