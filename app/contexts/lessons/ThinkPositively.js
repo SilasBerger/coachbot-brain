@@ -1,6 +1,7 @@
 const SynonymBox = require("../../model/SynonymBox");
 const Message = require("../../logic/Message");
 const Context = require("../Context");
+const KeepChattingContext = require("../KeepChattingContext");
 
 function getInstance() {
     return new ThinkPositively();
@@ -16,8 +17,24 @@ function ThinkPositively() {
     this.suggesters.add("I have a great way for you to improve your everyday life. It's all about thiking positively. Would you like me to show you what I mean?");
 
     this.input = function (meta) {
-        Context.backToDefault(meta);
-        Message.NoReply("This lesson on positivity is not yet implemented", meta);
+        this.loadMessages();
+        this.input = this.script;
+        meta.requestBody.user.mainContext.input(meta);
+    };
+
+    this.script = function (meta) {
+        if(this.messages.length > 0){
+            Message.NoReply(this.messages.shift(), meta);
+        } else{
+            Context.passContext(meta, new KeepChattingContext.KeepChattingContext());
+        }
+    };
+
+    this.loadMessages = function () {
+        this.messages = [
+            "This is a lesson about positivity",
+            "Alright, that's all I had to say!"
+        ];
     };
 
     this.defaultInput = this.input;

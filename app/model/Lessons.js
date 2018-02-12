@@ -3,10 +3,6 @@ const cb = require("../contexts/lessons/WhoIsCoachBot");
 const cbt = require("../contexts/lessons/WhatIsCBT");
 const grateful = require("../contexts/lessons/Gratefulness");
 
-/*exports.Lessons = [
-    tp, cb, cbt
-];*/
-
 exports.Lessons = [
-    tp, grateful
+    tp
 ];
