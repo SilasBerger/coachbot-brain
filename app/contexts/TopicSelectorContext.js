@@ -72,7 +72,7 @@ exports.TopicSelectorContext = function () {
     };
 
     this.randomLesson = function(user) {
-        //var newLessons = lessons.filter(lesson => user.lessonsCompleted.indexOf(lesson.lessonId) < 0);
+        //TODO: for deployment version (with multi user support) only consider lessons that haven't yet been taught to the user!
         var newLessons = lessons;
         var randIndex = Math.floor(Math.random() * newLessons.length);
         var lesson = newLessons[randIndex];

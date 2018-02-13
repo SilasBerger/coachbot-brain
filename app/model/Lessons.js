@@ -4,5 +4,5 @@ const cbt = require("../contexts/lessons/WhatIsCBT");
 const grateful = require("../contexts/lessons/Gratefulness");
 
 exports.Lessons = [
-    grateful
+    tp, grateful
 ];
