@@ -1,4 +1,3 @@
-const dialogflow = require("../dialogflow");
 const SynonymBox = require("../model/SynonymBox");
 
 // Syn boxes
@@ -10,17 +9,17 @@ didNotUnderstandReplys.add("Hmm... I'm not sure I understand :D Remember, I'm ju
 
 exports.NoReply = function (message, meta) {
     meta.responsePayload.speech = message;
-    dialogflow.response(meta);
+    meta.dialogflow.response(meta);
 };
 
 exports.DidNotUnderstand = function (meta) {
     meta.responsePayload.speech = didNotUnderstandReplys.get();
-    dialogflow.response(meta);
+    meta.dialogflow.response(meta);
 };
 
 exports.YesNoDecision = function (question, meta){
     meta.responsePayload.speech = question;
-    dialogflow.response(meta);
+    meta.dialogflow.response(meta);
     var originalInput = meta.requestBody.user.mainContext.input;
     meta.requestBody.user.mainContext.input = function (meta) {
         meta.requestBody.user.mainContext.input = originalInput;
@@ -39,12 +38,4 @@ exports.YesNoDecision = function (question, meta){
                 break;
         }
     }
-};
-
-exports.Choice = function (question, expectedActions, callback, preemptive, meta){
-
-};
-
-exports.FreeTextResponse = function (question, callback, preemptive, meta){
-
 };

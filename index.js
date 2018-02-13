@@ -1,6 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const dialogflow = require('./app/dialogflow');
+const Dialogflow = require('./app/dialogflow');
 const User = require("./app/model/User");
 const DefaultContext = require("./app/contexts/DefaultContext");
 const GreetingContext = require('./app/contexts/GreetingContext');
@@ -9,6 +9,7 @@ const GreetingContext = require('./app/contexts/GreetingContext');
 
 const app = express();
 app.use(bodyParser.json());
+const dialogflow = new Dialogflow.dialogflow();
 
 const port = (process.env.PORT || 3000);
 
