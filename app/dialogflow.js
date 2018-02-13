@@ -1,6 +1,7 @@
 const User = require("./model/User");
 const ResetContextContext = require("./contexts/ResetContextContext");
 const Context = require("./contexts/Context");
+const StopChattingContext = require("./contexts/StopChattingContext");
 
 exports.dialogflow = function () {
 
@@ -18,7 +19,13 @@ exports.dialogflow = function () {
         var meta = {requestBody: requestBody, responsePayload: responsePayload, responseObject: res, dialogflow: this};
         if(requestBody.resolvedQuery === "/reset"){
             Context.passContext(meta, new ResetContextContext.ResetContextContext());
-        } else{
+        } else if(requestBody.action === "stop-chatting"){
+            requestBody.user.savedContext = requestBody.user.mainContext;
+            Context.passContext(meta, new StopChattingContext.StopChattingContext());
+        } else if(requestBody.action === "change-topic"){
+
+        }
+        else{
             requestBody.user.mainContext.input(meta);
         }
     };
