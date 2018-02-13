@@ -11,8 +11,10 @@ exports.TopicSelectorContext = function () {
     const phq9DueAfterDays = 30;
     const remindPHQ9AfterDays = 5;
 
+    const demo = true;
+
     this.defaultInput = function(meta) {
-        if (this.shouldRemindPHQ9(meta.requestBody.user)) {
+        if (!demo && this.shouldRemindPHQ9(meta.requestBody.user)) {
             //TODO: suggest PHQ-9
         } else {
             this.scriptIndex = 0;
