@@ -2,6 +2,7 @@ const Message = require("../logic/Message");
 const Context = require("./Context");
 const FeelingAngryContext = require("./FeelingAngryContext");
 const FeelingHappyContext = require("./FeelingHappyContext");
+const FeelingDepressedContext = require("./FeelingDepressedContext");
 const TopicSelectorContext = require("./TopicSelectorContext");
 
 exports.DefaultContext = function () {
@@ -12,14 +13,12 @@ exports.DefaultContext = function () {
                 Context.passContext(meta, new FeelingAngryContext.FeelingAngryContext());
                 break;
             case "mood.depressed":
-                //TODO: take appropriate action
-                Context.backToDefault(meta);
-                Message.NoReply("This context is not yet implemented", meta);
+                Context.passContext(meta, new FeelingDepressedContext.FeelingDepressedContext());
                 break;
             case "mood.anxious":
                 //TODO: take appropriate action
                 Context.backToDefault(meta);
-                Message.NoReply("This context is not yet implemented", meta);
+                Message.NoReply("Sorry, this context is not yet implemented", meta);
                 break;
             case "mood.happy":
                 Context.passContext(meta, new FeelingHappyContext.FeelingHappyContext());
