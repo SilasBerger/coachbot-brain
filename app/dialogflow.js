@@ -2,6 +2,7 @@ const User = require("./model/User");
 const ResetContextContext = require("./contexts/ResetContextContext");
 const Context = require("./contexts/Context");
 const StopChattingContext = require("./contexts/StopChattingContext");
+const ChangeTopicContext = require("./contexts/ChangeTopicContext");
 
 exports.dialogflow = function () {
 
@@ -23,7 +24,8 @@ exports.dialogflow = function () {
             requestBody.user.savedContext = requestBody.user.mainContext;
             Context.passContext(meta, new StopChattingContext.StopChattingContext());
         } else if(requestBody.action === "change-topic"){
-
+            requestBody.user.savedContext = requestBody.user.mainContext;
+            Context.passContext(meta, new ChangeTopicContext.ChangeTopicContext());
         }
         else{
             requestBody.user.mainContext.input(meta);

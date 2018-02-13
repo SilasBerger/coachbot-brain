@@ -1,0 +1,51 @@
+const SynonymBox = require("../model/SynonymBox");
+const Message = require("../logic/Message");
+const Context = require("./Context");
+const TopicSelectorContext = require("./TopicSelectorContext");
+
+exports.ChangeTopicContext = function () {
+
+    this.input = function (meta) {
+        this.scriptIndex = 0;
+        this.input = this.script;
+        this.input(meta);
+    };
+
+    this.script = function (meta) {
+        var sb = new SynonymBox.SynonymBox();
+        switch (this.scriptIndex){
+            case 0:
+                this.scriptIndex = 1;
+                Message.YesNoDecision("Would you like to change the subject?", meta);
+                break;
+            case 1:
+                this.handleYesNoResponse(meta, 2,3,4);
+                break;
+            case 2:
+                Context.passContext(meta, new TopicSelectorContext.TopicSelectorContext());
+                break;
+            case 3:
+                meta.requestBody.user.mainContext = meta.requestBody.user.savedContext;
+                Message.NoReply("Okay, let's keep talking about this :D", meta);
+                break;
+            case 4:
+                this.scriptIndex = 1;
+                Message.YesNoDecision("Sorry, I didn't understand that. Would you like to chang the subject?", meta);
+                break;
+        }
+    };
+
+    this.handleYesNoResponse = function (meta, trueIndex, falseIndex, undefinedIndex) {
+        if(meta.requestBody.decisionResult === undefined){
+            this.scriptIndex = undefinedIndex;
+        } else if(meta.requestBody.decisionResult){
+            this.scriptIndex = trueIndex;
+        } else{
+            this.scriptIndex = falseIndex;
+        }
+        this.input(meta);
+    };
+
+    this.defaultInput = this.input;
+
+};
